@@ -1,0 +1,6 @@
+<h2>Edit crime</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: crime_path(@conn, :update, @crime) %>
+
+<span><%= link "Back", to: crime_path(@conn, :index) %></span>
