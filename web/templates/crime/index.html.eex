@@ -3,7 +3,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th><%= filter class: "btn btn-default btn-xs" %></th>
+      <th> <%= link "Crime ID", to: crime_path(@conn, :index, params: "string") %></th>
       <th>Month</th>
       <th>Crime type</th>
       <th>Reported by</th>

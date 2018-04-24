@@ -10,6 +10,12 @@ defmodule Crimes.CrimeController do
     render(conn, "index.html", categories: categories)
   end
 
+  def index(conn, params) do
+    categories = Repo.all(Crime)
+    
+    render(conn, "index.html", categories: categories)
+  end
+
   def new(conn, _params) do
     changeset = Crime.changeset(%Crime{})
     render(conn, "new.html", changeset: changeset)
