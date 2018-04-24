@@ -3,43 +3,25 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Lsoa code</th>
-      <th>Lsoa name</th>
-      <th>Context</th>
-      <th>Crime</th>
-      <th>Crime type</th>
-      <th>Falls within</th>
-      <th>Last outcome category</th>
-      <th>Latitude</th>
-      <th>Location</th>
-      <th>Longitude</th>
+      <th><%= filter class: "btn btn-default btn-xs" %></th>
       <th>Month</th>
+      <th>Crime type</th>
       <th>Reported by</th>
-
-      <th></th>
-    </tr>
+      <th>Context</th>
+      <th>Last outcome category</th>
+      <th>Location</th>
+      
   </thead>
   <tbody>
 <%= for crime <- @categories do %>
     <tr>
-      <td><%= crime.lsoa_code %></td>
-      <td><%= crime.lsoa_name %></td>
-      <td><%= crime.context %></td>
-      <td><%= crime.crime_id %></td>
-      <td><%= crime.crime_type %></td>
-      <td><%= crime.falls_within %></td>
-      <td><%= crime.last_outcome_category %></td>
-      <td><%= crime.latitude %></td>
-      <td><%= crime.location %></td>
-      <td><%= crime.longitude %></td>
+      <td><%= crime.crime_id %></td>      
       <td><%= crime.month %></td>
+      <td><%= crime.crime_type %></td>      
       <td><%= crime.reported_by %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: crime_path(@conn, :show, crime), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: crime_path(@conn, :edit, crime), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: crime_path(@conn, :delete, crime), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
+      <td><%= crime.context %></td>
+      <td><%= crime.last_outcome_category %></td>
+      <td><%= crime.location %></td>
     </tr>
 <% end %>
   </tbody>

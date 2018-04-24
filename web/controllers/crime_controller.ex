@@ -3,8 +3,10 @@ defmodule Crimes.CrimeController do
 
   alias Crimes.Crime
 
+  
   def index(conn, _params) do
     categories = Repo.all(Crime)
+    
     render(conn, "index.html", categories: categories)
   end
 
