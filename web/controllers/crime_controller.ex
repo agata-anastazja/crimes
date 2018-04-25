@@ -3,17 +3,18 @@ defmodule Crimes.CrimeController do
 
   alias Crimes.Crime
 
-  
-  def index(conn, _params) do
-    categories = Repo.all(Crime)
-    
+
+  def index(conn, params) do
+    filter = params[:filter]
+    categories =  case filter do
+      nil -> Repo.all(Crime)
+      _ -> apply_filter(params[:filter])
+    end
     render(conn, "index.html", categories: categories)
   end
 
-  def index(conn, params) do
-    categories = Repo.all(Crime)
-    
-    render(conn, "index.html", categories: categories)
+  def apply_filter(filter) do
+    IO.puts(filter)
   end
 
   def new(conn, _params) do

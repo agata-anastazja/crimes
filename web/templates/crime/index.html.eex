@@ -1,23 +1,24 @@
 <h2>Listing categories</h2>
 
 <table class="table">
-  <thead>
-    <tr>
-      <th> <%= link "Crime ID", to: crime_path(@conn, :index, params: ["crime"]) %></th>
-      <th>Month</th>
-      <th>Crime type</th>
-      <th>Reported by</th>
-      <th>Context</th>
-      <th>Last outcome category</th>
-      <th>Location</th>
-      
-  </thead>
+  <table class="table">
+    <thead>
+      <tr>
+        <th> <%= link "Crime ID", to: crime_path(@conn, :index, filter: :crime_id) %></th>
+        <th> <%= link "Month", to: crime_path(@conn, :index, filter: :month) %></th>
+        <th> <%= link "Crime type", to: crime_path(@conn, :index, filter: :crime_type) %></th>
+        <th> <%= link "Reported by", to: crime_path(@conn, :index, filter: :reported_by) %></th>
+        <th><%= link "Context", to: crime_path(@conn, :index, filter: :context) %></th>
+        <th><%= link "Last outcome category", to: crime_path(@conn, :index, filter: :last_outcome_category) %></th>
+        <th><%= link "Location", to: crime_path(@conn, :index, filter: :location) %></th>
+
+    </thead>
   <tbody>
 <%= for crime <- @categories do %>
     <tr>
-      <td><%= crime.crime_id %></td>      
+      <td><%= crime.crime_id %></td>
       <td><%= crime.month %></td>
-      <td><%= crime.crime_type %></td>      
+      <td><%= crime.crime_type %></td>
       <td><%= crime.reported_by %></td>
       <td><%= crime.context %></td>
       <td><%= crime.last_outcome_category %></td>
