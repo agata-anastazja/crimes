@@ -1,3 +1,5 @@
+import Ecto.Query
+
 defmodule Crimes.CrimeController do
   use Crimes.Web, :controller
 
@@ -6,16 +8,14 @@ defmodule Crimes.CrimeController do
 
   def index(conn, params) do
     filter = params[:filter]
-    categories =  case filter do
-      nil -> Repo.all(Crime)
-      _ -> apply_filter(params[:filter])
-    end
+    query = from crime in Crime, order_by: [{:desc, :crime_id}]
+    categories = Repo.all(query)
     render(conn, "index.html", categories: categories)
   end
 
-  def apply_filter(filter) do
-    IO.puts(filter)
-  end
+  defp apply_filter(query, nil), do: query
+  defp apply_filter(query, filter), do: from crime in query, order_by: [{:desc, :crime_id}]
+
 
   def new(conn, _params) do
     changeset = Crime.changeset(%Crime{})
