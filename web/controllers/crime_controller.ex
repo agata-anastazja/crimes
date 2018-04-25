@@ -6,11 +6,10 @@ defmodule Crimes.CrimeController do
   alias Crimes.Crime
 
 
-  def index(conn, %{"filter" => filter}) do
-
+  def index(conn, params) do
+    filter = params["filter"]
     if filter == nil do
-      query = from crime in Crime, order_by: [{:asc, :crime_id}]
-      categories = Repo.all(query)
+      categories = Repo.all(Crime)
     else
       filter_atom = String.to_atom(filter)
       query = from crime in Crime, order_by: [{:asc, ^filter_atom}]
