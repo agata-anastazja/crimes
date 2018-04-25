@@ -6,15 +6,25 @@ defmodule Crimes.CrimeController do
   alias Crimes.Crime
 
 
-  def index(conn, params) do
-    filter = params[:filter]
-    query = from crime in Crime, order_by: [{:desc, :crime_id}]
-    categories = Repo.all(query)
+  def index(conn, %{"filter" => filter}) do
+
+    if filter == nil do
+      query = from crime in Crime, order_by: [{:asc, :crime_id}]
+      categories = Repo.all(query)
+    else
+      filter_atom = String.to_atom(filter)
+      query = from crime in Crime, order_by: [{:asc, ^filter_atom}]
+      categories = Repo.all(query)
+    end
+
     render(conn, "index.html", categories: categories)
   end
 
-  defp apply_filter(query, nil), do: query
-  defp apply_filter(query, filter), do: from crime in query, order_by: [{:desc, :crime_id}]
+  defp apply_filter(nil), do: Repo.all(Crime)
+  defp apply_filter(filter) do
+    query = from crime in Crime, order_by: [{:desc, ^filter}]
+    Repo.all(query)
+  end
 
 
   def new(conn, _params) do
