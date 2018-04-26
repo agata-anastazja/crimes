@@ -15,7 +15,10 @@ defmodule Crimes.CrimeController do
       query = from crime in Crime, order_by: [{:asc, ^filter_atom}]
       categories = Repo.all(query)
     end
-
+    search_term = params["query"]
+    if search_term != "" and search_term != nil do
+      categories = Repo.all(search(search_term))
+    end
     render(conn, "index.html", categories: categories)
   end
 
@@ -25,6 +28,18 @@ defmodule Crimes.CrimeController do
     Repo.all(query)
   end
 
+  def search(search_term) do
+    wildcard_search = "%#{search_term}%"
+
+    from crime in Crime,
+    where: ilike(crime.crime_id, ^wildcard_search),
+    or_where: ilike(crime.month, ^wildcard_search),
+    or_where: ilike(crime.crime_type, ^wildcard_search),
+    or_where: ilike(crime.reported_by, ^wildcard_search),
+    or_where: ilike(crime.context, ^wildcard_search),
+    or_where: ilike(crime.last_outcome_category, ^wildcard_search),
+    or_where: ilike(crime.location , ^wildcard_search)
+  end
 
   def new(conn, _params) do
     changeset = Crime.changeset(%Crime{})

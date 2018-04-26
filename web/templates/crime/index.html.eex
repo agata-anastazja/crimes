@@ -1,3 +1,10 @@
+
+<%= form_for @conn, crime_path(@conn, :index), [method: :get, class: "pull-right"], fn f -> %>
+    <%= search_input f, :query %>
+    <%= submit "Search" %>
+<% end %>
+
+
 <h2>Listing categories</h2>
 
 <table class="table">
